@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'eventSelect.dart';
 import 'package:flutter/material.dart';
 import 'utilities.dart';
 import 'homepage.dart';
@@ -80,7 +80,7 @@ class LoginPage extends StatelessWidget {
   void authenticateUser(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
+      MaterialPageRoute(builder: (context) => IntermediatePage()),
     );
   }
 }
