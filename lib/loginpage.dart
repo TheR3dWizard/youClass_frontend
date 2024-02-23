@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'utilities.dart';
 import 'homepage.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,18 +46,20 @@ class LoginPage extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      LabelledTextField(label: "Username"),
-                      LabelledTextField.hidden(label: "Password", hidden: true),
+                      LabelledTextField.readable(
+                        label: "Username",
+                        controller: usernameController,
+                      ),
+                      LabelledTextField.hidden(
+                        label: "Password",
+                        hidden: true,
+                        controller: passwordController,
+                      ),
                     ],
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      //Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()),
-                      );
+                      authenticateUser(context);
                     },
                     style: OutlinedButton.styleFrom(
                       shadowColor: Colors.black,

@@ -33,6 +33,7 @@ class LabelledTextField extends StatelessWidget {
     super.key,
     required this.label,
     required this.hidden,
+    required this.controller,
   });
 
   @override
