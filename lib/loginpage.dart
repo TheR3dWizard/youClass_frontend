@@ -42,7 +42,7 @@ class LoginPage extends StatelessWidget {
                   Column(
                     children: [
                       LabelledTextField(label: "Username"),
-                      LabelledTextField(label: "Password"),
+                      LabelledTextField.hidden(label: "Password", hidden: true),
                     ],
                   ),
                   OutlinedButton(

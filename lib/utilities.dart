@@ -8,6 +8,8 @@ class LabelledTextField extends StatelessWidget {
   final String label;
   TextEditingController? controller;
   bool? enabled;
+  bool? hidden;
+
   //final Function(String) subFunction;
   LabelledTextField({
     super.key,
@@ -27,6 +29,12 @@ class LabelledTextField extends StatelessWidget {
     required this.enabled,
   });
 
+  LabelledTextField.hidden({
+    super.key,
+    required this.label,
+    required this.hidden,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,6 +44,7 @@ class LabelledTextField extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
           child: TextField(
+            obscureText: hidden ?? false,
             decoration: InputDecoration(
               border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
