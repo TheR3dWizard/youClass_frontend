@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: HomePage(),
+  ));
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -8,8 +14,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   int _sessionNum = 1;
   String _day = "Monday";
   String _hall = "Y402";
@@ -23,8 +28,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    _animationController = AnimationController(duration: const Duration(seconds: 2), vsync: this);
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
@@ -41,156 +45,173 @@ class _HomePageState extends State<HomePage>
       appBar: AppBar(
         title: const Text("YouClass"),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 100,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: _categories.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedIndex = index;
-                    });
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    color: _selectedIndex == index ? Colors.black : Colors.grey,
-                    child: Center(
-                      child: Text(
-                        _categories[index],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: _selectedIndex == index
-                              ? Colors.white
-                              : Colors.black,
+      body: Stack(
+        children: [
+          // Existing content
+          Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 100,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _categories.length,
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        color: _selectedIndex == index ? Colors.black : Colors.grey,
+                        child: Center(
+                          child: Text(
+                            _categories[index],
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: _selectedIndex == index ? Colors.white : Colors.black,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 20), // Spacer
-            const Text(
-              "Academic",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            const Text(
-              "Events",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 20), // Spacer
-            const Text(
-              "Enter Class Details",
-              style: TextStyle(fontSize: 68, fontWeight: FontWeight.bold),
-            ),
-            const Text(
-              "Enter the details for booking a class",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.normal),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownButton<String>(
-                    value: _day,
-                    items: [
-                      'Monday',
-                      'Tuesday',
-                      'Wednesday',
-                      'Thursday',
-                      'Friday',
-                      'Saturday',
-                      'Sunday'
-                    ].map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _day = value!;
-                      });
-                    },
+                const SizedBox(height: 20), // Spacer
+                const Text(
+                  "Academic",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownButton<int>(
-                    value: _sessionNum,
-                    items: [1, 2, 3, 4, 5, 6, 7].map((int value) {
-                      return DropdownMenuItem<int>(
-                        value: value,
-                        child: Text(value.toString()),
-                      );
-                    }).toList(),
-                    onChanged: (int? value) {
-                      setState(() {
-                        _sessionNum = value!;
-                      });
-                    },
+                const Text(
+                  "Events",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
+                ),
+                const SizedBox(height: 20), // Spacer
+                const Text(
+                  "Enter Class Details",
+                  style: TextStyle(fontSize: 68, fontWeight: FontWeight.bold),
+                ),
+                const Text(
+                  "Enter the details for booking a class",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.normal),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownButton<String>(
+                        value: _day,
+                        items: [
+                          'Monday',
+                          'Tuesday',
+                          'Wednesday',
+                          'Thursday',
+                          'Friday',
+                          'Saturday',
+                          'Sunday'
+                        ].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? value) {
+                          setState(() {
+                            _day = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownButton<int>(
+                        value: _sessionNum,
+                        items: [1, 2, 3, 4, 5, 6, 7].map((int value) {
+                          return DropdownMenuItem<int>(
+                            value: value,
+                            child: Text(value.toString()),
+                          );
+                        }).toList(),
+                        onChanged: (int? value) {
+                          setState(() {
+                            _sessionNum = value!;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                AnimatedBuilder(
+                  animation: _animation,
+                  builder: (context, child) {
+                    return Transform.rotate(
+                      angle: _animation.value * 6.3, // 6.3 radians = 360 degrees
+                      child: OutlinedButton(
+                        onPressed: () {
+                          stopAnimation();
+                          if (_day.toLowerCase() == "tuesday")
+                            showClassDetails();
+                          else
+                            showBookingDetails(["Y402", "Y401"]);
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        ),
+                        child: const Text("Check Class"),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
-            AnimatedBuilder(
-              animation: _animation,
-              builder: (context, child) {
-                return Transform.rotate(
-                  angle: _animation.value * 6.3, // 6.3 radians = 360 degrees
-                  child: OutlinedButton(
-                    onPressed: () {
-                      stopAnimation();
-                      if (_day.toLowerCase() == "tuesday")
-                        showClassDetails();
-                      else
-                        showBookingDetails(["Y402", "Y401"]);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.black),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                    ),
-                    child: const Text("Check Class"),
-                  ),
-                );
+          ),
+          // About Us Button
+          Positioned(
+            bottom: 16.0,
+            right: 16.0,
+            child: FloatingActionButton(
+              onPressed: () {
+                openAboutUsPage();
               },
+              backgroundColor: Colors.black,
+              child: const Icon(Icons.person),
             ),
-          ],
-        ),
+          ),
+          // Contact Us Button
+          Positioned(
+            bottom: 80.0,
+            right: 16.0,
+            child: FloatingActionButton(
+              onPressed: () {
+                openContactUsDialog();
+              },
+              backgroundColor: Colors.black,
+              child: const Icon(Icons.message),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          // Existing FloatingActionButton code...
           FloatingActionButton(
             onPressed: () {
-              openContactUsDialog();
+              openBookingConfirmationPage();
             },
-            child: const Icon(Icons.chat),
-            backgroundColor: Colors.black,
-            heroTag: null,
-          ),
-          const SizedBox(height: 16),
-          FloatingActionButton(
-            onPressed: () {
-              openAboutUsPage();
-            },
-            child: const Icon(Icons.person),
+            child: const Icon(Icons.book),
             backgroundColor: Colors.black,
             heroTag: null,
           ),
@@ -253,10 +274,8 @@ class _HomePageState extends State<HomePage>
                   Navigator.pop(context);
                 },
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 ),
                 child: const Text("Exit"),
               ),
@@ -266,10 +285,8 @@ class _HomePageState extends State<HomePage>
                   openFeedbackDialog();
                 },
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 ),
                 child: const Text("Feedback"),
               ),
@@ -368,24 +385,21 @@ class _HomePageState extends State<HomePage>
                   Navigator.pop(context);
                 },
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 ),
                 child: const Text("Exit"),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  openBookingConfirmationPage();
                 },
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 ),
-                child: const Text("Book"),
+                child: const Text("Book Again"),
               ),
             ],
           ),
@@ -404,6 +418,37 @@ class _HomePageState extends State<HomePage>
     );
 
     Navigator.push(context, pageRouteBuilder);
+  }
+
+  void openBookingConfirmationPage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.black,
+          title: const Text(
+            "Booking Confirmed!",
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              ),
+              child: const Text("Go to Login"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void openFeedbackDialog() {
@@ -473,13 +518,6 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  bool checkAvail() {
-
-    
-
-    return true;
-  }
-
   void openContactUsDialog() {
     showDialog(
       context: context,
@@ -509,10 +547,8 @@ class _HomePageState extends State<HomePage>
                   // Add your contact form logic here
                 },
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 ),
                 child: const Text("Contact Form"),
               ),
@@ -522,10 +558,8 @@ class _HomePageState extends State<HomePage>
                   // Add your contact information logic here
                 },
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 ),
                 child: const Text("Contact Information"),
               ),
@@ -549,161 +583,59 @@ class _HomePageState extends State<HomePage>
   }
 
   void openAboutUsPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AboutUsPage(),
-      ),
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.black,
+          title: const Text(
+            "About Us",
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          content: Column(
+            children: [
+              const Text(
+                "Learn more about our team and mission.",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // Add your about us page logic here
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                ),
+                child: const Text("Visit About Us"),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              ),
+              child: const Text("Close"),
+            ),
+          ],
+        );
+      },
     );
   }
 
   void stopAnimation() {
     _animationController.stop();
   }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-}
-
-class AboutUsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("About Us"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Developers",
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            DeveloperCard("Abinav"),
-            const SizedBox(height: 10),
-            DeveloperCard("Dhakkshin"),
-            const SizedBox(height: 10),
-            DeveloperCard("Sreeraghavan"),
-            const SizedBox(height: 10),
-            DeveloperCard("Karthikeyan"),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class DeveloperCard extends StatefulWidget {
-  final String developerName;
-
-  DeveloperCard(this.developerName);
-
-  @override
-  _DeveloperCardState createState() => _DeveloperCardState();
-}
-
-class _DeveloperCardState extends State<DeveloperCard>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _opacityAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController =
-        AnimationController(duration: Duration(seconds: 1), vsync: this);
-    _opacityAnimation =
-        Tween<double>(begin: 0, end: 1).animate(_animationController);
-    _animationController.forward();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _opacityAnimation,
-      child: Container(
-        width: 200,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: [Colors.black, Color.fromARGB(25, 0, 0, 255)],
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          widget.developerName,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-}
-
-class DeveloperImageCard extends StatelessWidget {
-  final String developerName;
-
-  DeveloperImageCard(this.developerName);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Center(
-                child: Image.asset(
-                  'assets/person_computer_icon.png', // Replace with your image asset path
-                  width: 30,
-                  height: 30,
-                  color: Colors.black, // Adjust the color if needed
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            Text(
-              developerName,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: HomePage(),
-  ));
 }
