@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'utilities.dart';
 import 'homepage.dart';
+import 'package:http/http.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -17,9 +18,11 @@ class LoginPage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Colors.grey[200],
             ),
-            child: Image.asset("assets/images/logo.png"),
+            child: SizedBox(
+                width: 300,
+                height: 300,
+                child: Image.asset("assets/images/logo.png")),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -65,5 +68,12 @@ class LoginPage extends StatelessWidget {
         ],
       ),
     )));
+  }
+
+  void authenticateUser(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
   }
 }
