@@ -77,9 +77,114 @@ class _HomePageState extends State<HomePage> {
                         _sessionNum = value!;
                       });
                     }),
-              )
+              ),
+              OutlinedButton(
+                  onPressed: () {
+                    showClass("Y402");
+                  },
+                  child: const Text("Check Class"))
             ],
           ),
         ));
   }
+
+  void showClass(String hall) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Class Details",
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+            content: SizedBox(
+              height: 300,
+              width: 300,
+              child: Column(
+                children: [
+                  const Text(
+                    "Class has already been booked",
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+                  ),
+                  Text(
+                    "Day: $_day",
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    "Session: $_sessionNum",
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    "Hall: $hall",
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w400),
+                  )
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Exit")),
+            ],
+          );
+        });
+  }
+
+  void bookClass() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Class Details",
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+            content: SizedBox(
+              height: 300,
+              width: 300,
+              child: Column(
+                children: [
+                  const Text(
+                    "Class has already been booked",
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+                  ),
+                  Text(
+                    "Day: $_day",
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    "Session: $_sessionNum",
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w400),
+                  ),
+                  const Text(
+                    "Hall has not been booked yet",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+                  )
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Exit")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Book Class")),
+            ],
+          );
+        });
+  }
+
+  // void bookingMenu() {
+  //   showDialog(context: context, builder: (context) {});
+  // }
 }

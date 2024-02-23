@@ -9,17 +9,17 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-            child: Container(
+            child: SizedBox(
       height: 275,
       width: 720,
       child: Row(
         children: [
           Container(
-            child: Image.asset("assets/youclass.png"),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.grey[200],
             ),
+            child: Image.asset("assets/images/logo.png"),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
